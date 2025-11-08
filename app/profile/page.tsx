@@ -111,7 +111,7 @@ export default async function ProfilePage() {
       </main>
 
       <footer className="footer">
-        <p>Built with Next.js • Deployed on Vercel</p>
+        <p>Built with Next.js • Deployed on Netlify</p>
       </footer>
     </div>
   )

@@ -28,13 +28,11 @@ export function getMetadata(baseUrl: string = 'http://localhost:3000'): Metadata
     version: "1.0.0",
     profile: {
       name: "Sebastian",
-      avatar: "https://avatars.githubusercontent.com/u/1?v=4",
+      avatar: "https://avatars.githubusercontent.com/SebastianGR-FC",
       contact: {
         github: "SebastianGR-FC",
-        linkedin: "www.linkedin.com/in/sebastian-garcia-2831a8368",
+        linkedin: "https://www.linkedin.com/in/sebastian-garcia-2831a8368",
         email: "sebastiang.abc@gmail.com",
-        twitter: "",
-        website: "",
         other: [
           {
             platform: "Dev.to",
