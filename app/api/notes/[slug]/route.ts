@@ -17,27 +17,18 @@ export async function GET(
     )
   }
 
-  // Return the raw markdown with frontmatter
+  // Return the raw markdown file directly
   const notesDirectory = path.join(process.cwd(), 'content/notes')
   const fullPath = path.join(notesDirectory, `${slug}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
 
-  // Simplified API - focus on content with link
-  const baseUrl = request.headers.get('host') 
-    ? `${request.headers.get('x-forwarded-proto') || 'https'}://${request.headers.get('host')}`
-    : 'https://dev-notes-rbr.netlify.app'
-  
-  return NextResponse.json(
-    {
-      url: `${baseUrl}/api/notes/${slug}`, // Main focus: link to this note
-      content: fileContents, // Raw markdown with frontmatter (Jekyll format)
+  // Return markdown file directly with proper content-type
+  return new NextResponse(fileContents, {
+    headers: {
+      'Content-Type': 'text/markdown; charset=utf-8',
+      'Access-Control-Allow-Origin': '*',
+      'Content-Disposition': `inline; filename="${slug}.md"`,
     },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-    }
-  )
+  })
 }
 
