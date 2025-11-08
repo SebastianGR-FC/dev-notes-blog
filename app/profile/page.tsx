@@ -12,7 +12,8 @@ function formatDate(dateValue: string | Date | undefined): string {
 }
 
 export default async function ProfilePage() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+  // Use production URL directly
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://dev-notes-rbr.netlify.app'
   const metadata = getMetadata(baseUrl)
 
   return (

@@ -22,15 +22,14 @@ export async function GET(
   const fullPath = path.join(notesDirectory, `${slug}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
 
+  // Simplified API - focus on content with link
+  const baseUrl = request.headers.get('host') 
+    ? `${request.headers.get('x-forwarded-proto') || 'https'}://${request.headers.get('host')}`
+    : 'https://dev-notes-rbr.netlify.app'
+  
   return NextResponse.json(
     {
-      slug: note.slug,
-      title: note.title,
-      date: note.date,
-      excerpt: note.excerpt,
-      tags: note.tags || [],
-      categories: note.categories || [],
-      published: note.published,
+      url: `${baseUrl}/api/notes/${slug}`, // Main focus: link to this note
       content: fileContents, // Raw markdown with frontmatter (Jekyll format)
     },
     {
