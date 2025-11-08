@@ -20,14 +20,11 @@ export async function GET(request: Request) {
   const notes = await getNotesList()
   const baseUrl = getBaseUrl(request)
   
-  // Simplified API - focus on links to notes
+  // Only return links to notes
   const filesList = {
     files: notes.map((note) => ({
-      url: `${baseUrl}/api/notes/${note.slug}`, // Main focus: link to note
-      title: note.title,
-      date: note.date,
+      url: `${baseUrl}/api/notes/${note.slug}`,
     })),
-    lastUpdated: new Date().toISOString(),
   }
 
   return NextResponse.json(filesList, {
