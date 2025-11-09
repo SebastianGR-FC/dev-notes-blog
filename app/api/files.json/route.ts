@@ -20,10 +20,10 @@ export async function GET(request: Request) {
   const notes = await getNotesList()
   const baseUrl = getBaseUrl(request)
   
-  // Only return links to notes
+  // Only return links to notes with .md extension
   const filesList = {
     files: notes.map((note) => ({
-      url: `${baseUrl}/api/notes/${note.slug}`,
+      url: `${baseUrl}/api/notes/${note.slug}.md`,
     })),
   }
 

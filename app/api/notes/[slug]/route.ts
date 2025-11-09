@@ -8,7 +8,9 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params
-  const note = await getNote(slug)
+  // Remove .md extension if present to get the actual slug
+  const cleanSlug = slug.endsWith('.md') ? slug.slice(0, -3) : slug
+  const note = await getNote(cleanSlug)
 
   if (!note) {
     return NextResponse.json(
@@ -19,7 +21,7 @@ export async function GET(
 
   // Return the raw markdown file directly
   const notesDirectory = path.join(process.cwd(), 'content/notes')
-  const fullPath = path.join(notesDirectory, `${slug}.md`)
+  const fullPath = path.join(notesDirectory, `${cleanSlug}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
 
   // Return markdown file directly with proper content-type
@@ -27,7 +29,7 @@ export async function GET(
     headers: {
       'Content-Type': 'text/markdown; charset=utf-8',
       'Access-Control-Allow-Origin': '*',
-      'Content-Disposition': `inline; filename="${slug}.md"`,
+      'Content-Disposition': `inline; filename="${cleanSlug}.md"`,
     },
   })
 }
